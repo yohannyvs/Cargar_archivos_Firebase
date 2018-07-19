@@ -11,7 +11,15 @@ export interface Item { nombre: string; url: string; }
 })
 export class FotosComponent implements OnInit {
 
-  constructor() { }
+  private itemsCollection: AngularFirestoreCollection<Item>;
+  items: Observable<Item[]>;
+
+  constructor( private afs: AngularFirestore ) {
+
+    this.itemsCollection = afs.collection<Item>('img');
+    this.items = this.itemsCollection.valueChanges();
+
+  }
 
   ngOnInit() {
   }
